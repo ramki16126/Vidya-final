@@ -1,48 +1,8 @@
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/lib/auth";
 import Navbar from "@/components/Navbar";
 import CategoryCard from "@/components/CategoryCard";
-import { Atom, Stethoscope, Code, Loader2 } from "lucide-react";
-
-interface Profile {
-  full_name: string;
-  category: "JEE" | "NEET" | "BTECH" | null;
-}
+import { Atom, Stethoscope, Code } from "lucide-react";
 
 const Dashboard = () => {
-  const { user } = useAuth();
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      if (!user) return;
-
-      const { data } = await supabase
-        .from("profiles")
-        .select("full_name, category")
-        .eq("user_id", user.id)
-        .maybeSingle();
-
-      setProfile(data);
-      setLoading(false);
-    };
-
-    fetchProfile();
-  }, [user]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </div>
-      </div>
-    );
-  }
-
   const categories = [
     {
       title: "JEE Preparation",
@@ -74,12 +34,10 @@ const Dashboard = () => {
         {/* Welcome Section */}
         <div className="mb-12 text-center">
           <h1 className="text-3xl font-bold text-foreground md:text-4xl">
-            Welcome back, {profile?.full_name || "Student"}!
+            Welcome to EduPath!
           </h1>
           <p className="mt-2 text-lg text-muted-foreground">
-            {profile?.category
-              ? `Continue your ${profile.category} preparation journey`
-              : "Choose a category to start learning"}
+            Choose a category to start learning
           </p>
         </div>
 

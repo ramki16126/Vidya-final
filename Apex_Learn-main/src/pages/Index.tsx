@@ -33,11 +33,11 @@ const Index = () => {
           </nav>
 
           <div className="flex items-center gap-4">
-            <Link to="/login" className="hidden md:inline-block">
-              <Button variant="ghost">Login</Button>
+            <Link to="/courses">
+              <Button variant="ghost">Courses</Button>
             </Link>
-            <Link to="/register">
-              <Button className="bg-blue-600 hover:bg-blue-700">Get Started</Button>
+            <Link to="/dashboard">
+              <Button className="bg-blue-600 hover:bg-blue-700">Dashboard</Button>
             </Link>
             <button className="md:hidden">
               <Menu className="h-6 w-6" />
@@ -59,14 +59,14 @@ const Index = () => {
                 Everything you need to excel in competitive exams and kickstart your tech career.
               </p>
               <div className="flex flex-wrap gap-4 pt-2">
-                <Link to="/register">
+                <Link to="/dashboard">
                   <Button size="lg" className="bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/30">
-                    Get Started Free
+                    Go to Dashboard
                   </Button>
                 </Link>
-                <Link to="/login">
+                <Link to="/courses">
                   <Button size="lg" variant="outline">
-                    Login
+                    Browse Courses
                   </Button>
                 </Link>
               </div>
@@ -216,9 +216,9 @@ const Index = () => {
                   <br />
                   <span className="text-blue-100">Unlock Your Potential with EduPath.</span>
                 </h2>
-                <Link to="/register">
+                <Link to="/dashboard">
                   <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-50 shadow-lg text-lg px-8 py-6">
-                    Sign Up Now
+                    Get Started Now
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
