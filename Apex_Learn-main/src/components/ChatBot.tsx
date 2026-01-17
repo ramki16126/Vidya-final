@@ -3,7 +3,6 @@ import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useAuth } from '@/lib/auth';
 
 interface Message {
     id: string;
@@ -25,7 +24,6 @@ const ChatBot = () => {
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
-    const { user } = useAuth();
 
     // Auto-scroll to bottom when new messages arrive
     useEffect(() => {
@@ -171,8 +169,8 @@ Please provide a clear, concise, and helpful response. If the question is about 
                                     >
                                         <div
                                             className={`max-w-[80%] rounded-2xl px-4 py-2 ${message.role === 'user'
-                                                    ? 'bg-primary text-primary-foreground'
-                                                    : 'bg-muted text-foreground'
+                                                ? 'bg-primary text-primary-foreground'
+                                                : 'bg-muted text-foreground'
                                                 }`}
                                         >
                                             <p className="text-sm whitespace-pre-wrap">{message.content}</p>
