@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import CourseCard from "@/components/CourseCard";
 import { Button } from "@/components/ui/button";
@@ -14,6 +13,73 @@ interface Course {
   resource_link: string | null;
 }
 
+// Mock course data
+const mockCourses: Course[] = [
+  {
+    id: "1",
+    title: "Physics Fundamentals",
+    description: "Master the basics of mechanics, thermodynamics, and electromagnetism for JEE preparation.",
+    category: "JEE",
+    resource_link: "https://drive.google.com/drive/folders/1cyTxIhaU0OD7cflVpE5xBNYkmGcKi__d"
+  },
+  {
+    id: "2",
+    title: "Advanced Mathematics",
+    description: "Comprehensive guide to calculus, algebra, and coordinate geometry.",
+    category: "JEE",
+    resource_link: null
+  },
+  {
+    id: "3",
+    title: "Chemistry Essentials",
+    description: "Organic, inorganic, and physical chemistry concepts explained.",
+    category: "JEE",
+    resource_link: null
+  },
+  {
+    id: "4",
+    title: "Biology Complete Guide",
+    description: "Complete coverage of botany and zoology for NEET aspirants.",
+    category: "NEET",
+    resource_link: null
+  },
+  {
+    id: "5",
+    title: "Zoology for NEET",
+    description: "In-depth study of animal biology and human physiology.",
+    category: "NEET",
+    resource_link: null
+  },
+  {
+    id: "6",
+    title: "Botany for NEET",
+    description: "Plant biology, genetics, and ecology for medical entrance exams.",
+    category: "NEET",
+    resource_link: null
+  },
+  {
+    id: "7",
+    title: "Data Structures & Algorithms",
+    description: "Master DSA concepts with practical implementations.",
+    category: "BTECH",
+    resource_link: null
+  },
+  {
+    id: "8",
+    title: "Web Development",
+    description: "Learn HTML, CSS, JavaScript, and modern frameworks.",
+    category: "BTECH",
+    resource_link: null
+  },
+  {
+    id: "9",
+    title: "Database Management",
+    description: "SQL, NoSQL, and database design principles.",
+    category: "BTECH",
+    resource_link: null
+  }
+];
+
 const Courses = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [courses, setCourses] = useState<Course[]>([]);
@@ -21,16 +87,16 @@ const Courses = () => {
   const activeCategory = searchParams.get("category") || "all";
 
   useEffect(() => {
-    const fetchCourses = async () => {
+    const fetchCourses = () => {
       setLoading(true);
-      let query = supabase.from("courses").select("*");
 
+      // Filter courses based on category
+      let filteredCourses = mockCourses;
       if (activeCategory !== "all" && (activeCategory === "JEE" || activeCategory === "NEET" || activeCategory === "BTECH")) {
-        query = query.eq("category", activeCategory);
+        filteredCourses = mockCourses.filter(course => course.category === activeCategory);
       }
 
-      const { data } = await query.order("created_at", { ascending: false });
-      setCourses((data as Course[]) || []);
+      setCourses(filteredCourses);
       setLoading(false);
     };
 
